@@ -30,7 +30,7 @@ function ChartTooltip({ active, payload, label }: TooltipProps<number, string>) 
           </span>
         </div>
       ))}
-      <p className="mt-2 border-t border-border pt-2 text-[11px] text-muted-foreground">
+      <p className="mt-2 border-t border-border pt-2 text-xs text-muted-foreground">
         ارقام به میلیارد ریال
       </p>
     </div>
@@ -39,13 +39,13 @@ function ChartTooltip({ active, payload, label }: TooltipProps<number, string>) 
 
 export function PayrollOverviewChart() {
   return (
-    <Card className="lg:col-span-2">
-      <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-4 space-y-0 pb-2">
-        <div className="space-y-1.5">
-          <CardTitle className="text-base">روند ماهانه حقوق و دستمزد</CardTitle>
-          <CardDescription>مقایسه ناخالص و خالص پرداختی · ۱۲ ماه اخیر (میلیارد ریال)</CardDescription>
+    <Card className="@5xl:col-span-2">
+      <CardHeader className="flex-row flex-wrap items-start justify-between gap-x-6 gap-y-3 pb-2 md:pb-2">
+        <div className="min-w-0">
+          <CardTitle>روند ماهانه حقوق و دستمزد</CardTitle>
+          <CardDescription>مقایسه ناخالص و خالص پرداختی · {faNumber(12)} ماه اخیر (میلیارد ریال)</CardDescription>
         </div>
-        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+        <div className="flex items-center gap-4 pt-1 text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5">
             <span className="size-2.5 rounded-sm bg-chart-1" /> حقوق ناخالص
           </span>
@@ -54,8 +54,8 @@ export function PayrollOverviewChart() {
           </span>
         </div>
       </CardHeader>
-      <CardContent className="px-3 pb-4 sm:px-6">
-        <div className="h-72 w-full">
+      <CardContent className="px-3 pb-4 md:px-6 md:pb-5">
+        <div className="h-64 w-full md:h-72">
           <ClientOnly fallback={<div className="h-full w-full animate-pulse rounded-xl bg-muted/60" />}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={monthlyPayroll} barGap={3} margin={{ top: 8, right: 0, left: 0, bottom: 0 }}>
@@ -67,16 +67,16 @@ export function PayrollOverviewChart() {
                   axisLine={false}
                   interval="preserveStartEnd"
                   minTickGap={6}
-                  tick={{ fill: "var(--muted-foreground)", fontSize: 11, fontFamily: "Vazirmatn" }}
+                  tick={{ fill: "var(--muted-foreground)", fontSize: 12, fontFamily: "Vazirmatn" }}
                   tickMargin={10}
                 />
                 <YAxis
                   orientation="right"
                   tickLine={false}
                   axisLine={false}
-                  width={40}
+                  width={44}
                   tickFormatter={(v: number) => faNumber(v)}
-                  tick={{ fill: "var(--muted-foreground)", fontSize: 11, fontFamily: "Vazirmatn" }}
+                  tick={{ fill: "var(--muted-foreground)", fontSize: 12, fontFamily: "Vazirmatn" }}
                 />
                 <Tooltip content={<ChartTooltip />} cursor={{ fill: "var(--muted)", radius: 8 }} />
                 <Bar dataKey="gross" name="حقوق ناخالص" fill="var(--chart-1)" radius={[6, 6, 0, 0]} maxBarSize={18} />

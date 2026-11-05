@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { currentUser, notifications } from "@/lib/demo-data";
-import { jalaliLong } from "@/lib/format";
+import { faNumber, jalaliLong } from "@/lib/format";
 
 export function AppHeader() {
   const [today, setToday] = useState<string>("");
@@ -21,7 +21,7 @@ export function AppHeader() {
   const unread = notifications.filter((n) => n.unread).length;
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-border/70 bg-card/90 px-4 backdrop-blur md:px-6">
+    <header className="sticky top-0 z-20 flex h-16 items-center gap-2 border-b border-border/70 bg-card/90 px-4 backdrop-blur sm:gap-3 md:px-6 lg:px-8">
       <SidebarTrigger className="size-9 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground [&_svg]:rotate-180" />
 
       <div className="relative hidden max-w-md flex-1 sm:block">
@@ -64,7 +64,7 @@ export function AppHeader() {
             <div className="flex items-center justify-between border-b px-4 py-3">
               <span className="text-sm font-semibold">اعلان‌ها</span>
               <span className="rounded-full bg-teal-soft px-2 py-0.5 text-xs text-accent-foreground">
-                {unread.toLocaleString("fa-IR")} خوانده‌نشده
+                {faNumber(unread)} خوانده‌نشده
               </span>
             </div>
             <div className="py-1">
@@ -96,7 +96,7 @@ export function AppHeader() {
                   {currentUser.initials}
                 </AvatarFallback>
               </Avatar>
-              <div className="hidden text-right md:block">
+              <div className="hidden text-start md:block">
                 <p className="text-sm font-semibold leading-5">{currentUser.name}</p>
                 <p className="text-xs text-muted-foreground">{currentUser.role}</p>
               </div>

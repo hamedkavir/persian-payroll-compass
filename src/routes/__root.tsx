@@ -8,7 +8,7 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { AppHeader } from "@/components/layout/app-header";
@@ -20,7 +20,7 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
+        <h1 className="text-7xl font-bold text-foreground">۴۰۴</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">صفحه پیدا نشد</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           صفحه‌ای که به دنبال آن هستید وجود ندارد یا جابه‌جا شده است.
@@ -48,11 +48,9 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
+        <h1 className="text-xl font-semibold text-foreground">بارگذاری صفحه انجام نشد</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+          مشکلی پیش آمده است. دوباره تلاش کنید یا به داشبورد بازگردید.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -62,13 +60,13 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Try again
+            تلاش دوباره
           </button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Go home
+            بازگشت به داشبورد
           </a>
         </div>
       </div>
@@ -123,17 +121,33 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+/** Tablets and small laptops start with the sidebar collapsed to icons. */
+const SIDEBAR_COLLAPSE_QUERY = "(max-width: 1279px)";
+
+function useResponsiveSidebar() {
+  const [open, setOpen] = useState(true);
+  useEffect(() => {
+    const mql = window.matchMedia(SIDEBAR_COLLAPSE_QUERY);
+    const apply = () => setOpen(!mql.matches);
+    apply();
+    mql.addEventListener("change", apply);
+    return () => mql.removeEventListener("change", apply);
+  }, []);
+  return [open, setOpen] as const;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [sidebarOpen, setSidebarOpen] = useResponsiveSidebar();
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <SidebarProvider>
+      <SidebarProvider open={sidebarOpen} onOpenChange={setSidebarOpen}>
         <AppSidebar />
         <SidebarInset className="min-w-0 bg-background">
           <AppHeader />
-          <main className="mx-auto w-full max-w-[1440px] flex-1 px-4 py-6 md:px-6 md:py-8 lg:px-8">
+          <main className="mx-auto w-full max-w-[1440px] flex-1 px-4 py-5 md:px-6 md:py-7 lg:px-8">
             <Outlet />
           </main>
         </SidebarInset>

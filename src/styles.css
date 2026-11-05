@@ -10,8 +10,19 @@
  * All colors use oklch. Register new tokens in @theme inline.
  */
 
+/* Persian script needs more vertical room than Latin: looser line heights for UI text. */
+@theme {
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.25rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.5rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.75rem;
+}
+
 @theme inline {
   --font-sans: "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Vazirmatn", ui-monospace, monospace;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -139,7 +150,17 @@
     font-feature-settings: "ss01";
   }
 
+  /* Form controls and SVG chart text don't inherit the font by default everywhere. */
+  button,
+  input,
+  select,
+  textarea,
+  svg text {
+    font-family: inherit;
+  }
+
   body {
+    line-height: 1.6;
     background-color: var(--color-background);
     color: var(--color-foreground);
     -webkit-font-smoothing: antialiased;

@@ -4,15 +4,15 @@ import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { contractTypes, deadlines, departments } from "@/lib/demo-data";
-import { faNumber } from "@/lib/format";
+import { faNumber, faPercent, jalaliDayMonth } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 export function DepartmentChart() {
   const total = departments.reduce((s, d) => s + d.count, 0);
   return (
     <Card>
-      <CardHeader className="pb-2">
-        <CardTitle className="text-base">ترکیب کارکنان بر اساس واحد</CardTitle>
+      <CardHeader>
+        <CardTitle>ترکیب کارکنان بر اساس واحد</CardTitle>
         <CardDescription>مجموع {faNumber(total)} نفر نیروی فعال</CardDescription>
       </CardHeader>
       <CardContent>
@@ -53,9 +53,9 @@ export function DepartmentChart() {
             <span className="text-xs text-muted-foreground">نفر</span>
           </div>
         </div>
-        <ul className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2.5">
+        <ul className="mt-6 grid grid-cols-2 gap-x-5 gap-y-2">
           {departments.map((d) => (
-            <li key={d.name} className="flex items-center justify-between gap-2 text-xs">
+            <li key={d.name} className="flex items-center justify-between gap-2 text-[13px] leading-6">
               <span className="flex min-w-0 items-center gap-2 text-muted-foreground">
                 <span className="size-2.5 shrink-0 rounded-sm" style={{ background: d.color }} />
                 <span className="truncate">{d.name}</span>
@@ -74,20 +74,21 @@ export function ContractTypesCard() {
   const genders = { male: 268, female: 144 };
   return (
     <Card>
-      <CardHeader className="pb-4">
-        <CardTitle className="text-base">نوع قرارداد و ترکیب نیرو</CardTitle>
+      <CardHeader>
+        <CardTitle>نوع قرارداد و ترکیب نیرو</CardTitle>
         <CardDescription>وضعیت استخدامی کارکنان فعال</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-5">
+      <CardContent className="space-y-4">
         {contractTypes.map((c, i) => {
           const pct = (c.count / total) * 100;
           return (
             <div key={c.label}>
-              <div className="mb-2 flex items-center justify-between text-sm">
+              <div className="mb-1.5 flex items-center justify-between gap-3 text-sm">
                 <span className="text-foreground">{c.label}</span>
-                <span className="tabular text-muted-foreground">
-                  <span className="font-semibold text-foreground">{faNumber(c.count)}</span> نفر ·
-                  ٪{faNumber(pct, 0)}
+                <span className="tabular shrink-0 text-[13px] text-muted-foreground">
+                  <span className="font-semibold text-foreground">{faNumber(c.count)}</span> نفر
+                  <span className="mx-1.5 text-border">|</span>
+                  {faPercent(pct, 0)}
                 </span>
               </div>
               <div className="h-2 overflow-hidden rounded-full bg-muted">
@@ -99,7 +100,7 @@ export function ContractTypesCard() {
             </div>
           );
         })}
-        <div className="grid grid-cols-3 gap-3 border-t border-border/70 pt-5">
+        <div className="grid grid-cols-3 gap-2.5 border-t border-border/70 pt-4">
           {[
             { label: "آقایان", value: faNumber(genders.male) },
             { label: "بانوان", value: faNumber(genders.female) },
@@ -107,7 +108,7 @@ export function ContractTypesCard() {
           ].map((s) => (
             <div key={s.label} className="rounded-xl bg-muted/60 px-3 py-2.5 text-center">
               <p className="tabular text-sm font-bold text-foreground">{s.value}</p>
-              <p className="mt-0.5 text-[11px] text-muted-foreground">{s.label}</p>
+              <p className="text-xs text-muted-foreground">{s.label}</p>
             </div>
           ))}
         </div>
@@ -125,8 +126,8 @@ const toneDot = {
 export function DeadlinesCard() {
   return (
     <Card>
-      <CardHeader className="pb-4">
-        <CardTitle className="text-base">سررسیدهای پیش‌رو</CardTitle>
+      <CardHeader>
+        <CardTitle>سررسیدهای پیش‌رو</CardTitle>
         <CardDescription>تکالیف قانونی و مالی این ماه</CardDescription>
       </CardHeader>
       <CardContent>
@@ -138,10 +139,10 @@ export function DeadlinesCard() {
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium text-foreground">{d.title}</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">مهلت: {d.date}</p>
+                <p className="text-xs text-muted-foreground">مهلت: {jalaliDayMonth(d.date)}</p>
               </div>
-              <span className="tabular shrink-0 rounded-lg border border-border px-2 py-1 text-xs text-muted-foreground">
-                {faNumber(d.daysLeft)} روز
+              <span className="tabular shrink-0 whitespace-nowrap rounded-lg border border-border px-2 py-0.5 text-xs text-muted-foreground">
+                <span className="font-semibold text-foreground">{faNumber(d.daysLeft)}</span> روز مانده
               </span>
             </li>
           ))}

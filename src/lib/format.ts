@@ -29,6 +29,7 @@ export function faRialCompact(value: number): { amount: string; unit: string } {
   return { amount: faNumber(value), unit: "ریال" };
 }
 
+/** Percentage with the sign after the number, e.g. "۴٫۲٪" or "۴۰٪". */
 export function faPercent(value: number, fractionDigits = 1): string {
   return `${faNumber(Math.abs(value), fractionDigits)}٪`;
 }
@@ -46,8 +47,24 @@ export function jalaliLong(date: Date): string {
   return `${get("weekday")} ${get("day")} ${get("month")} ${get("year")}`;
 }
 
+/** Day and month name in the Jalali calendar, e.g. "۳۰ آبان". */
+export function jalaliDayMonth(date: Date | string): string {
+  return new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
+    day: "numeric",
+    month: "long",
+    timeZone: "Asia/Tehran",
+  }).format(toDate(date));
+}
+
+/** Accepts a Date or an ISO date string ("2026-11-05" is read as midday Tehran time). */
+function toDate(date: Date | string): Date {
+  if (date instanceof Date) return date;
+  return /^\d{4}-\d{2}-\d{2}$/.test(date) ? new Date(`${date}T08:30:00Z`) : new Date(date);
+}
+
 /** Numeric Jalali date, e.g. "۱۴۰۵/۰۸/۱۵". */
-export function jalaliShort(date: Date): string {
+export function jalaliShort(input: Date | string): string {
+  const date = toDate(input);
   const parts = new Intl.DateTimeFormat("en-US-u-ca-persian", {
     year: "numeric",
     month: "2-digit",

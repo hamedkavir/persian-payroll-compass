@@ -13,12 +13,14 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { company } from "@/lib/demo-data";
 import { navGroups } from "./nav-items";
 
 export function AppSidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { isMobile, setOpenMobile } = useSidebar();
 
   return (
     <Sidebar side="right" collapsible="icon" className="border-sidebar-border">
@@ -39,7 +41,7 @@ export function AppSidebar() {
       <SidebarContent className="px-1 pt-3">
         {navGroups.map((group) => (
           <SidebarGroup key={group.label}>
-            <SidebarGroupLabel className="text-[11px] font-medium text-sidebar-muted">
+            <SidebarGroupLabel className="text-xs font-medium text-sidebar-muted">
               {group.label}
             </SidebarGroupLabel>
             <SidebarGroupContent>
@@ -54,7 +56,7 @@ export function AppSidebar() {
                         tooltip={{ children: item.title, side: "left" }}
                         className="h-10 rounded-lg text-sidebar-foreground/85 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:font-semibold data-[active=true]:text-sidebar-accent-foreground [&>svg]:size-[18px]"
                       >
-                        <Link to={item.url}>
+                        <Link to={item.url} onClick={() => isMobile && setOpenMobile(false)}>
                           <item.icon
                             className={active ? "text-sidebar-primary" : "text-sidebar-muted"}
                           />
@@ -62,7 +64,7 @@ export function AppSidebar() {
                         </Link>
                       </SidebarMenuButton>
                       {item.badge && (
-                        <SidebarMenuBadge className="left-2 right-auto rounded-full bg-sidebar-primary text-[11px] text-sidebar-primary-foreground peer-hover/menu-button:text-sidebar-primary-foreground peer-data-[active=true]/menu-button:text-sidebar-primary-foreground">
+                        <SidebarMenuBadge className="left-2 right-auto rounded-full bg-sidebar-primary text-xs text-sidebar-primary-foreground peer-hover/menu-button:text-sidebar-primary-foreground peer-data-[active=true]/menu-button:text-sidebar-primary-foreground">
                           {item.badge}
                         </SidebarMenuBadge>
                       )}
@@ -80,7 +82,7 @@ export function AppSidebar() {
           <p className="truncate text-xs font-medium text-sidebar-accent-foreground">
             {company.name}
           </p>
-          <p className="mt-1 text-[11px] text-sidebar-muted">
+          <p className="mt-0.5 text-xs text-sidebar-muted">
             سال مالی {company.fiscalYear} · نسخه ۴٫۲
           </p>
         </div>

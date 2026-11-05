@@ -37,17 +37,18 @@ function Dashboard() {
   const avg = faRialCompact(s.averageNet);
 
   return (
-    <div className="space-y-6">
+    // @container: grids respond to the space left beside the sidebar, not the window width.
+    <div className="@container flex flex-col gap-4 md:gap-5">
       <PageHeader
         title={`${currentUser.name.split(" ")[0]} عزیز، خوش آمدید`}
         description={`نمای کلی وضعیت حقوق و دستمزد ${company.currentPeriod} · ${company.name}`}
         actions={
           <>
-            <Button variant="outline" className="rounded-xl bg-card">
+            <Button variant="outline" className="h-10 rounded-xl bg-card">
               <Download className="size-4" />
               خروجی گزارش
             </Button>
-            <Button className="rounded-xl">
+            <Button className="h-10 rounded-xl">
               <Plus className="size-4" />
               محاسبه حقوق جدید
             </Button>
@@ -55,7 +56,7 @@ function Dashboard() {
         }
       />
 
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <section className="mt-1 grid gap-4 md:gap-5 @lg:grid-cols-2 @4xl:grid-cols-4">
         <StatCard
           label="جمع حقوق ناخالص آبان"
           value={gross.amount}
@@ -94,15 +95,15 @@ function Dashboard() {
         />
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-3">
+      <section className="grid gap-4 md:gap-5 @5xl:grid-cols-3">
         <PayrollOverviewChart />
         <PayrollCycleCard />
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <section className="grid gap-4 md:gap-5 @2xl:grid-cols-2 @5xl:grid-cols-3">
         <DepartmentChart />
         <ContractTypesCard />
-        <div className="md:col-span-2 xl:col-span-1">
+        <div className="@2xl:col-span-2 @5xl:col-span-1">
           <DeadlinesCard />
         </div>
       </section>

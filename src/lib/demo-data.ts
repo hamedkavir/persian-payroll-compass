@@ -59,41 +59,50 @@ export const contractTypes = [
   { label: "پاره‌وقت", count: 27 },
 ];
 
-export const payrollCycle = [
-  { title: "ثبت کارکرد ماهانه", detail: "۴۱۲ نفر · تکمیل شده", status: "done" as const },
-  { title: "محاسبه حقوق و مزایا", detail: "۱۲ آبان · تکمیل شده", status: "done" as const },
-  { title: "تأیید مدیر مالی", detail: "در انتظار بررسی", status: "current" as const },
-  { title: "ارسال لیست به بانک", detail: "برنامه‌ریزی: ۲۸ آبان", status: "pending" as const },
-  { title: "صدور فیش حقوقی", detail: "پس از پرداخت", status: "pending" as const },
+export type CycleStepStatus = "done" | "current" | "pending";
+
+// Payroll workflow for the current period. Dates are ISO (Gregorian) and shown in Jalali.
+export const payrollCycle: {
+  title: string;
+  owner: string;
+  date: string;
+  status: CycleStepStatus;
+}[] = [
+  { title: "ثبت کارکرد ماهانه", owner: "واحد منابع انسانی", date: "2026-10-31", status: "done" },
+  { title: "محاسبه حقوق و مزایا", owner: "واحد حقوق و دستمزد", date: "2026-11-03", status: "done" },
+  { title: "تأیید مدیر مالی", owner: "مدیریت مالی", date: "2026-11-11", status: "current" },
+  { title: "ارسال لیست به بانک", owner: "خزانه‌داری", date: "2026-11-19", status: "pending" },
+  { title: "صدور فیش حقوقی", owner: "واحد حقوق و دستمزد", date: "2026-11-20", status: "pending" },
 ];
 
 export const deadlines = [
-  { title: "ارسال لیست بیمه تأمین اجتماعی", date: "۳۰ آبان", daysLeft: 15, tone: "warning" as const },
-  { title: "واریز مالیات حقوق مهر ماه", date: "۳۰ آبان", daysLeft: 15, tone: "warning" as const },
-  { title: "پرداخت حقوق آبان ۱۴۰۵", date: "۲۸ آبان", daysLeft: 13, tone: "teal" as const },
-  { title: "تمدید قراردادهای موقت آذر", date: "۵ آذر", daysLeft: 20, tone: "info" as const },
+  { title: "ارسال لیست بیمه تأمین اجتماعی", date: "2026-11-21", daysLeft: 15, tone: "warning" as const },
+  { title: "واریز مالیات حقوق مهر ماه", date: "2026-11-21", daysLeft: 15, tone: "warning" as const },
+  { title: "پرداخت حقوق آبان ۱۴۰۵", date: "2026-11-19", daysLeft: 13, tone: "teal" as const },
+  { title: "تمدید قراردادهای موقت آذر", date: "2026-11-26", daysLeft: 20, tone: "info" as const },
 ];
 
 export type PayrollStatus = "paid" | "approval" | "processing" | "rejected";
 
 export const recentPayroll: {
-  id: string;
+  id: number;
   name: string;
   department: string;
   position: string;
   period: string;
   net: number;
+  /** ISO date, displayed in Jalali. */
   date: string;
   status: PayrollStatus;
 }[] = [
-  { id: "۱۰۲۴۷", name: "مریم احمدی", department: "مالی و حسابداری", position: "کارشناس ارشد حسابداری", period: "آبان ۱۴۰۵", net: 342_500_000, date: "۱۴۰۵/۰۸/۱۴", status: "approval" },
-  { id: "۱۰۱۸۳", name: "علیرضا کریمی", department: "فنی و مهندسی", position: "مهندس نرم‌افزار", period: "آبان ۱۴۰۵", net: 418_900_000, date: "۱۴۰۵/۰۸/۱۴", status: "approval" },
-  { id: "۱۰۳۱۲", name: "زهرا موسوی", department: "منابع انسانی", position: "کارشناس جذب و استخدام", period: "آبان ۱۴۰۵", net: 268_300_000, date: "۱۴۰۵/۰۸/۱۳", status: "processing" },
-  { id: "۱۰۰۹۶", name: "محمدحسین رضایی", department: "تولید و عملیات", position: "سرپرست خط تولید", period: "آبان ۱۴۰۵", net: 295_700_000, date: "۱۴۰۵/۰۸/۱۳", status: "processing" },
-  { id: "۱۰۲۵۸", name: "فاطمه حسینی", department: "فروش و بازاریابی", position: "مدیر فروش منطقه‌ای", period: "مهر ۱۴۰۵", net: 456_200_000, date: "۱۴۰۵/۰۷/۲۸", status: "paid" },
-  { id: "۱۰۴۰۱", name: "امیر جعفری", department: "پشتیبانی و خدمات", position: "کارشناس پشتیبانی", period: "مهر ۱۴۰۵", net: 214_800_000, date: "۱۴۰۵/۰۷/۲۸", status: "paid" },
-  { id: "۱۰۱۲۹", name: "سارا نوروزی", department: "فنی و مهندسی", position: "تحلیلگر داده", period: "مهر ۱۴۰۵", net: 372_400_000, date: "۱۴۰۵/۰۷/۲۸", status: "rejected" },
-  { id: "۱۰۳۷۵", name: "رضا صادقی", department: "تولید و عملیات", position: "تکنسین تعمیرات", period: "مهر ۱۴۰۵", net: 238_600_000, date: "۱۴۰۵/۰۷/۲۷", status: "paid" },
+  { id: 10247, name: "مریم احمدی", department: "مالی و حسابداری", position: "کارشناس ارشد حسابداری", period: "آبان ۱۴۰۵", net: 342_500_000, date: "2026-11-05", status: "approval" },
+  { id: 10183, name: "علیرضا کریمی", department: "فنی و مهندسی", position: "مهندس نرم‌افزار", period: "آبان ۱۴۰۵", net: 418_900_000, date: "2026-11-05", status: "approval" },
+  { id: 10312, name: "زهرا موسوی", department: "منابع انسانی", position: "کارشناس جذب و استخدام", period: "آبان ۱۴۰۵", net: 268_300_000, date: "2026-11-04", status: "processing" },
+  { id: 10096, name: "محمدحسین رضایی", department: "تولید و عملیات", position: "سرپرست خط تولید", period: "آبان ۱۴۰۵", net: 295_700_000, date: "2026-11-04", status: "processing" },
+  { id: 10258, name: "فاطمه حسینی", department: "فروش و بازاریابی", position: "مدیر فروش منطقه‌ای", period: "مهر ۱۴۰۵", net: 456_200_000, date: "2026-10-20", status: "paid" },
+  { id: 10401, name: "امیر جعفری", department: "پشتیبانی و خدمات", position: "کارشناس پشتیبانی", period: "مهر ۱۴۰۵", net: 214_800_000, date: "2026-10-20", status: "paid" },
+  { id: 10129, name: "سارا نوروزی", department: "فنی و مهندسی", position: "تحلیلگر داده", period: "مهر ۱۴۰۵", net: 372_400_000, date: "2026-10-20", status: "rejected" },
+  { id: 10375, name: "رضا صادقی", department: "تولید و عملیات", position: "تکنسین تعمیرات", period: "مهر ۱۴۰۵", net: 238_600_000, date: "2026-10-19", status: "paid" },
 ];
 
 export const notifications = [
