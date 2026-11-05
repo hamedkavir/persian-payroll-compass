@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- The app shell (right-side sidebar + header) lives in `src/routes/__root.tsx`; pages render inside its `<main>`. Why: every module shares one RTL layout.
+- Frontend only: demo data lives in `src/lib/demo-data.ts` until the existing Node/Express/MySQL backend is wired in. Why: backend integration is explicitly out of scope for now.
+- Format every displayed number/date through `src/lib/format.ts` (Persian digits, Jalali calendar via `Intl` `ca-persian`). Why: keeps Persian presentation consistent and tested.
+- Charts are wrapped in `ClientOnly` and use `reversed` X axes / right-oriented Y axes. Why: recharts measures the DOM, and timelines must read right-to-left.
