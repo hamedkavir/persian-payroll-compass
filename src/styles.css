@@ -1,0 +1,172 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system — Persian payroll & HR dashboard.
+ * Deep navy primary, soft neutral surfaces, white cards, subtle teal accents.
+ * All colors use oklch. Register new tokens in @theme inline.
+ */
+
+/* Persian script needs more vertical room than Latin: looser line heights for UI text. */
+@theme {
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.25rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.5rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.75rem;
+}
+
+@theme inline {
+  --font-sans: "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Vazirmatn", ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --shadow-card: var(--elevation-card);
+  --shadow-raised: var(--elevation-raised);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-soft: var(--destructive-soft);
+  --color-teal: var(--teal);
+  --color-teal-foreground: var(--teal-foreground);
+  --color-teal-soft: var(--teal-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0.974 0.004 255);
+  --foreground: oklch(0.23 0.04 262);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.23 0.04 262);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.23 0.04 262);
+
+  --primary: oklch(0.29 0.075 263);
+  --primary-foreground: oklch(0.985 0.004 250);
+  --secondary: oklch(0.955 0.007 255);
+  --secondary-foreground: oklch(0.29 0.075 263);
+  --muted: oklch(0.958 0.006 255);
+  --muted-foreground: oklch(0.53 0.025 262);
+  --accent: oklch(0.955 0.025 192);
+  --accent-foreground: oklch(0.42 0.075 194);
+
+  --teal: oklch(0.6 0.095 190);
+  --teal-foreground: oklch(0.99 0.005 190);
+  --teal-soft: oklch(0.955 0.028 190);
+
+  --success: oklch(0.56 0.12 158);
+  --success-soft: oklch(0.955 0.035 158);
+  --warning: oklch(0.62 0.13 65);
+  --warning-soft: oklch(0.96 0.04 80);
+  --info: oklch(0.5 0.1 255);
+  --info-soft: oklch(0.955 0.02 255);
+  --destructive: oklch(0.58 0.19 25);
+  --destructive-foreground: oklch(0.985 0.004 250);
+  --destructive-soft: oklch(0.96 0.025 25);
+
+  --border: oklch(0.918 0.008 258);
+  --input: oklch(0.91 0.009 258);
+  --ring: oklch(0.6 0.095 190);
+
+  --chart-1: oklch(0.32 0.08 263);
+  --chart-2: oklch(0.62 0.095 190);
+  --chart-3: oklch(0.55 0.085 245);
+  --chart-4: oklch(0.8 0.07 190);
+  --chart-5: oklch(0.76 0.02 260);
+  --chart-6: oklch(0.8 0.07 80);
+
+  --elevation-card: 0 1px 2px oklch(0.25 0.05 262 / 0.04), 0 6px 20px -8px oklch(0.25 0.05 262 / 0.08);
+  --elevation-raised: 0 2px 4px oklch(0.25 0.05 262 / 0.05), 0 16px 32px -12px oklch(0.25 0.05 262 / 0.16);
+
+  --sidebar: oklch(0.235 0.055 264);
+  --sidebar-foreground: oklch(0.93 0.01 255);
+  --sidebar-muted: oklch(0.68 0.025 258);
+  --sidebar-primary: oklch(0.7 0.1 188);
+  --sidebar-primary-foreground: oklch(0.2 0.05 264);
+  --sidebar-accent: oklch(0.29 0.06 264);
+  --sidebar-accent-foreground: oklch(0.985 0.004 250);
+  --sidebar-border: oklch(0.32 0.05 264);
+  --sidebar-ring: oklch(0.7 0.1 188);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01";
+  }
+
+  /* Form controls and SVG chart text don't inherit the font by default everywhere. */
+  button,
+  input,
+  select,
+  textarea,
+  svg text {
+    font-family: inherit;
+  }
+
+  body {
+    line-height: 1.6;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
