@@ -1,65 +1,53 @@
 # Persian Payroll Compass
 
-Design a modern, premium, enterprise-grade Persian payroll and human resources management dashboard.
+A Persian (Farsi), right-to-left payroll and human-resources application project.
 
-Project context:
-This is the frontend redesign of an existing Iranian payroll management system. The backend already exists and uses Node.js, Express, and MySQL. For now, create only the frontend UI with realistic demo data. Do not implement backend integration.
+## Project status
 
-Requirements:
+This repository currently contains the React + TypeScript redesign of the payroll interface. It is an evolving frontend, not yet a complete production payroll application. Dashboard figures and sample employee/payroll content are demonstration data and must not be treated as live records.
 
-Use React and TypeScript.
+The existing operational application uses a separate Node.js/Express + MySQL backend and a legacy HTML/CSS/JavaScript client. Their source has **not yet been imported into this repository**. Backend integration and migration of the legacy workflows into React are planned work; do not assume the React UI is connected to a production database.
 
-Full Persian language interface.
+## Technology
 
-Right-to-left (RTL) layout.
-
-Use Vazirmatn font.
-
-Modern, elegant, professional enterprise dashboard.
-
-Use a sophisticated color palette: deep navy blue, soft neutral backgrounds, white cards, and subtle teal accents.
-
-Responsive design for desktop, tablet, and mobile.
-
-Professional sidebar navigation with icons.
-
-Elegant header with user profile, notifications, and search.
-
-Dashboard cards showing payroll statistics.
-
-Monthly payroll overview.
-
-Employee statistics and charts.
-
-Recent payroll activity table.
-
-Persian numbers and Jalali date presentation.
-
-Clean spacing, consistent typography, subtle shadows, and rounded corners.
-
-Avoid excessive gradients, excessive animations, and clutter.
-
-Create a polished dashboard UI that looks suitable for a real Iranian corporate payroll application.
-
-Use realistic Persian demo content.
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/b7e55966-d145-4473-bfa8-eca1ac6f18f4).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+- React and TypeScript
+- TanStack Start and TanStack Router
+- Vite
+- Tailwind CSS
+- Radix UI components
+- Persian RTL layout and Vazirmatn typography
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Requirements: Node.js (LTS) and npm.
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+```bash
+npm ci
 npm run dev
 ```
+
+Available checks:
+
+```bash
+npm run lint
+npm test
+npm run build
+```
+
+## Security and privacy
+
+Payroll applications may handle highly sensitive employee information. This repository must contain source code and synthetic examples only. Never commit:
+
+- `.env` files, credentials, API keys, tokens, private keys, or production connection strings
+- Real employee records, payslips, bank details, identity documents, or personnel photographs
+- Database dumps, backups, runtime uploads, or production logs
+
+Review [SECURITY.md](SECURITY.md) before deploying or reporting a vulnerability.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Changes should be proposed through a branch and pull request. Do not commit directly to `main` for substantial changes.
+
+## License
+
+No open-source license has been added yet. Until a license is explicitly selected and committed, the default copyright rules apply; public visibility does not itself grant permission to reuse, modify, or redistribute the code.
